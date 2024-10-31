@@ -58,7 +58,7 @@ const TruckerForm: React.FC<TruckerFormProps> = () => {
         })
         .unwrap()
         .then(() => {
-            toast.success('Trucker Cleared')
+            toast.success('Trucker Cleared \n Please generate the Trucker Clearance Form in Helios')
             form.reset({
                 trip_no: '',
                 plate_no: null
