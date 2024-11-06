@@ -28,7 +28,8 @@ const formSchema = yup.object({
         label: yup.string().required(),
         value: yup.string().required()
     }).nullable().notOneOf([null],'Required'),
-    
+    plate_no_vqic: yup.bool().required('Please confirm that plate number matches VQIC.').oneOf([true], 'Please confirm that plate number matches VQIC.'),
+    trucker_name_vqic: yup.bool().required('Please confirm that the trucker name matches VQIC.').oneOf([true], 'Please confirm that trucker name matches VQIC.'),
 })
 
 type formSchemaType = yup.InferType<typeof formSchema>
@@ -69,7 +70,7 @@ const TruckerForm: React.FC<TruckerFormProps> = () => {
     return (
         <form onSubmit={form.handleSubmit(handleSubmit)}>
             <Form {...form}>
-                <div className='flex flex-col gap-2 w-[300px]'>
+                <div className='flex flex-col gap-2 w-[400px]'>
                     <FormField
                         control={form.control}
                         name='trip_no'
@@ -88,7 +89,39 @@ const TruckerForm: React.FC<TruckerFormProps> = () => {
                         name='plate_no'
                         label='Plate No'
                         placeholder='Plate No'
-                    />       
+                    />  
+                    <FormField
+                        control={form.control}
+                        name='plate_no_vqic'
+                        render={({field}) => (
+                            <FormItem>
+                                <div className='flex gap-1 items-center'>
+                                    <FormControl>
+                                        <Input type='checkbox' className='h-5 w-5'  onChange={(e) => field.onChange(e.target.checked)} checked={field.value}/>  
+                                    </FormControl>
+                                    <FormLabel>Plate number matches VQIC</FormLabel>
+                                </div> 
+                                <FormMessage className='text-xs'/>
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name='trucker_name_vqic'
+                        render={({field}) => (
+                            <FormItem>
+                                <div className='flex gap-1 items-center'>
+                                    <FormControl>
+                                        <Input type='checkbox' className='h-5 w-5'  onChange={(e) => field.onChange(e.target.checked)} checked={field.value}/>  
+                                    </FormControl>
+                                    <FormLabel>Trucker Name matches VQIC</FormLabel>
+                                </div> 
+                                <FormMessage className='text-xs'/>
+                            </FormItem>
+                        )}
+                    />
+                         
                     <div className='grid grid-cols-2 gap-2'>
                         <label>Trucker Name:</label> <label>{data?.trucker_name}</label>
                         <label>Vehicle Type:</label> <label>{data?.vehicle_type}</label>

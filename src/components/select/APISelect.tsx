@@ -46,6 +46,7 @@ const APISelect: React.FC<APISelectProps> = ({isClearable=true,...props}) => {
         placeholder={props.placeholder}
         isClearable={isClearable}
         isLoading={isLoading}
+        noOptionsMessage={() => 'Plate number is unmaintained, please notify fleet team'}
     />;
 }
 
